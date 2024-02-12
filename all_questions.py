@@ -102,19 +102,76 @@ def question2():
 def question3():
     answer = {}
 
+    # (a)
+    p_c0 = 10/20 
+    p_c1 = 10/20
+    
+    overall_gini = 1 - (p_c0**2 + p_c1**2)
+    
+    # (b) = 0.0
+    
+    # (c)
+    m_p_c0 = 6/10
+    m_p_c1 = 4/10
+    
+    f_p_c0 = 4/10
+    f_p_c1 = 6/10
+    
+    male_gini = 1 - (m_p_c0**2 + m_p_c1**2)
+    female_gini = 1 - (f_p_c0**2 + f_p_c1**2)
+      
+    gender_gini = ((10/20) * male_gini) + ((10/20) * female_gini)
+    
+    # (d)
+    fam_p_c0 = 1/4 
+    fam_p_c1 = 3/4
+    
+    sport_p_c0 = 8/8
+    sport_p_c1 = 0/8
+    
+    lux_p_c0 = 1/7
+    lux_p_c1 = 7/8
+    
+    gini_family = 1 - (fam_p_c0**2 + fam_p_c1**2)
+    gini_sports = 1 - (sport_p_c0**2 + sport_p_c1**2)
+    gini_luxury = 1 - (lux_p_c0**2 + lux_p_c1**2)    
+    
+    car_type_gini = ((4/20) * gini_family) + ((8/20) * gini_sports) + ((8/20) * gini_luxury)
+    
+    # (e)
+    small_p_c0 = 3/5
+    small_p_c1 = 2/5
+    
+    med_p_c0 = 3/7
+    med_p_c1 = 4/7
+    
+    large_p_c0 = 2/4
+    large_p_c1 = 2/4
+    
+    xl_p_c0 = 2/4
+    xl_p_c1 = 2/4
+    
+    small_gini = 1 - (small_p_c0**2 + small_p_c1**2)
+    med_gini = 1 - (med_p_c0**2 + med_p_c1**2)
+    large_gini = 1 - (large_p_c0**2 + large_p_c1**2)
+    xl_gini = 1 - (xl_p_c0**2 + xl_p_c1**2)
+    
+    
+    shirt_type_gini = ((5/20)*small_gini) + ((7/20)*med_gini) + ((4/20)*large_gini) + ((4/20)*xl_gini)
+    
     # float
-    answer["(a) Gini, overall"] = 0.
+    answer["(a) Gini, overall"] = overall_gini
 
     # float
     answer["(b) Gini, ID"] = 0.0
-    answer["(c) Gini, Gender"] = 0.
-    answer["(d) Gini, Car type"] = 0.
-    answer["(e) Gini, Shirt type"] = 0.
+    answer["(c) Gini, Gender"] = gender_gini
+    answer["(d) Gini, Car type"] = car_type_gini
+    answer["(e) Gini, Shirt type"] = shirt_type_gini
 
-    answer["(f) attr for splitting"] = ""
+    answer["(f) attr for splitting"] = "Car Type"
 
     # Explanatory text string
-    answer["(f) explain choice"] = ""
+    answer["(f) explain choice"] = "Car Type has the lowest Gini index so splitting by this attribute will result in better separation of classes"
 
     return answer
 
@@ -135,49 +192,49 @@ def question4():
     #  'quantitative', 'interval', 'ratio'
     # If you have a choice between 'binary' and 'discrete', choose 'binary'
 
-    answer["a"] = []
+    # I am not sure on this one because technically this is ordinal as well
+    answer["a"] = ['binary', 'qualitative', 'nominal']
 
     # Explain if there is more than one interpretation. Repeat for the other questions. At least five words that form a sentence.
-    answer["a: explain"] = ""
+    answer["a: explain"] = "Binary because it is either AM or PM. Nominal because AM and PM don't have an order unless we know which came first (chicken or the egg problem). And qualitative because its a label."
 
-    answer["b"] = []
+    answer["b"] = ['continuous', 'quantitative', 'ratio']
     answer["b: explain"] = ""
 
-    answer["c"] = []
-    answer["c: explain"] = ""
+    answer["c"] = ['discrete', 'qualitative', 'ordinal']
+    answer["c: explain"] = "I choose discrete because I assumed that people would be based brightness off of a set of options like (low, medium, high), however, it could also be continuous if they were using something like a sliding scale to judge the brightness."
 
-    answer["d"] = []
+    answer["d"] = ['continuous', 'quantitative', 'interval']
     answer["d: explain"] = ""
 
-    answer["e"] = []
+    answer["e"] = ['discrete', 'qualitative', 'ordinal']
     answer["e: explain"] = ""
 
-    answer["f"] = []
+    answer["f"] = ['continuous', 'quantitative', 'interval']
     answer["f: explain"] = ""
 
-    answer["g"] = []
+    answer["g"] = ['discrete', 'quantitative', 'ratio']
     answer["g: explain"] = ""
 
-    answer["h"] = []
+    answer["h"] = ['discrete', 'qualitative', 'nominal']
     answer["h: explain"] = ""
 
-    answer["i"] = []
+    answer["i"] = ['discrete', 'qualitative', 'ordinal']
     answer["i: explain"] = ""
 
-    answer["j"] = []
+    answer["j"] = ['discrete', 'qualitative', 'ordinal']
     answer["j: explain"] = ""
 
-    answer["k"] = []
+    answer["k"] = ['continuous', 'quantitative', 'ratio']
     answer["k: explain"] = ""
 
-    answer["l"] = []
+    answer["l"] = ['continuous', 'quantitative', 'ratio']
     answer["l: explain"] = ""
 
-    answer["m"] = []
+    answer["m"] = ['discrete', 'qualitative', 'nominal']
     answer["m: explain"] = ""
 
     return answer
-
 
 # ----------------------------------------------------------------------
 
@@ -188,18 +245,18 @@ def question5():
     # Read appropriate section of book chapter 3
 
     # string: one of 'Model 1' or 'Model 2'
-    explain["a"] = ""
-    explain["a explain"] = ""
+    explain["a"] = "Model 2"
+    explain["a explain"] = "Since the accuracy for Model 2 is on the testing set, I would prioritize its performance over the model run on the training set. Especially since we are interested in seeing how it performs on unseen data."
 
     # string: one of 'Model 1' or 'Model 2'
-    explain["b"] = ""
-    explain["b explain"] = ""
+    explain["b"] = "Model 1"
+    explain["b explain"] = "When looking at the perfomance on the combined dataset, I would chose Model 1 because its higher accuracy shows that it has better generalization."
 
     explain["c similarity"] = ""
-    explain["c similarity explain"] = ""
+    explain["c similarity explain"] = "MDL and pessimistic error both penalize overly complex models to ensure better generalization and avoid overfitting."
 
     explain["c difference"] = ""
-    explain["c difference explain"] = ""
+    explain["c difference explain"] = "A key difference is in the model selection process. MDL trys to find the simplest model that best explains the data by minimizing the combined length of the model and data descriptions. On the other hand, pessimistic error estimates a model's generalization error by considering complexity of the modela dn size of the training dataset. It does not explicitly minimize a description length."
 
     return explain
 
@@ -238,19 +295,36 @@ def question7():
     answer = {}
 
     # float
-    answer["a, info gain, ID"] = 0.
-    answer["b, info gain, Handedness"] = 0.
+    id_entropy_before_split = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
+    id_entropy_after_split = 0
+    id_info_gain = id_entropy_before_split - id_entropy_after_split
+    
+    handedness_entropy_before_split = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
+    handedness_entropy_left = -((9/10)*log2(9/10) + (1/10)*log2(1/10))
+    handedness_entropy_right = -((1/10)*log2(1/10) + (9/10)*log2(9/10))
+    handedness_entropy_after_split = (10/20)*handedness_entropy_left + (10/20)*handedness_entropy_right
+    handedness_info_gain = handedness_entropy_before_split - handedness_entropy_after_split
+    
+    answer["a, info gain, ID"] = id_info_gain
+    answer["b, info gain, Handedness"] = handedness_info_gain
 
     # string: "ID" or "Handedness"
-    answer["c, which attrib"] = ""
+    answer["c, which attrib"] = "ID"
 
+    
+    id_split_info = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
+    id_gain_ratio = id_info_gain / id_split_info
+    
+    handedness_split_info = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
+    handedness_gain_ratio = handedness_info_gain / handedness_split_info
+    
     # answer is a float
-    answer["d, gain ratio, ID"] = 0.
-    answer["e, gain ratio, Handedness"] = 0.
+    answer["d, gain ratio, ID"] = id_gain_ratio
+    answer["e, gain ratio, Handedness"] = handedness_gain_ratio
 
     # string: one of 'ID' or 'Handedness' based on gain ratio
     # choose the attribute with the largest gain ratio
-    answer["f, which attrib"] = ""
+    answer["f, which attrib"] = "Handedness"
 
     return answer
 
