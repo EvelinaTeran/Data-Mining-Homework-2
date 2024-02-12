@@ -58,6 +58,32 @@ class BinaryTree:
     def print_tree(self):
         print(self.__str__())
 
+# Function to compute entropy (Evelina made)     
+def entropy(class_labels):
+    class_counts = {}
+    for label in class_labels:
+        if label not in class_counts:
+            class_counts[label] = 0
+        class_counts[label] += 1
+    entropy_val = 0
+    total_samples = len(class_labels)
+    for count in class_counts.values():
+        probability = count / total_samples
+        entropy_val -= probability * log2(probability)
+    return entropy_val
+
+
+# Function to calculate information gain
+def information_gain(data, atrribute_index, target_index):
+    total_entropy = entropy([row[target_index] for row in data])
+    attribute_values = set([row[attribute_index] for row in data])
+    attribute_entropy = 0
+    total_samples = len(data)
+    for value in atrribute_values:
+        subset = [row for row in data if row[attribute_index] == value]
+        subset_entropy = entropy([row[target_index] for row in subset]) * len(subset) / total_samples
+        attribute_entropy += subset_entropy
+    return total_entropy - attribute_entropy
 
 # Example on how to create a binary tree
 # A has two children: B and C
@@ -73,3 +99,17 @@ def construct_binary_tree():
     root.right.insert_left("F")
     root.right.insert_right("G")
     return root
+
+def calculate_entropy(p_c0, p_c1):
+    if p_c0 == 0 or p_c1 == 0:
+        return 0
+    return - (p_c0 * math.log2(p_c0) + p_c1 * math.log2(p_c1))
+
+def calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right):
+    entropy_parent = calculate_entropy(p_c0_parent, p_c1_parent)
+    weight_left = p_c0_left + p_c1_left
+    weight_right = p_c0_right + p_c1_right
+    entropy_left = calculate_entropy(p_c0_left, p_c1_left)
+    entropy_right = calculate_entropy(p_c0_right, p_c1_right)
+    information_gain = entropy_parent - ((weight_left * entropy_left + weight_right * entropy_right) / (weight_left + weight_right))
+    return information_gain
