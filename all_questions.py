@@ -27,7 +27,7 @@ def question1():
     p_c1_parent = 5/10 #Probability of lass 1 (Lung cancer) in the parent node
     
     # Calculate entropy for the parent node
-    entropy_parent = calculate_entropy(p_c0_parent, p_c1_parent)
+    entropy_parent = u.calculate_entropy(p_c0_parent, p_c1_parent)
     
     # Calculate the information gain for each attribute at level 1
     # Info Gain for smoking
@@ -36,7 +36,7 @@ def question1():
     p_c0_right = 4/5 # Probability 0 (no lung cancer) if smoking is no
     p_c1_right = 1/5 # Probability 1 (lung cancer) if smoking is no
     
-    information_gain_smoking = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    information_gain_smoking = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
     print(f"info gain smoking: {information_gain_smoking}")
     
     # Info Gain for cough
@@ -45,7 +45,7 @@ def question1():
     p_c0_right = 2 / 5  # Probability of 0 (No lung cancer) if cough is no
     p_c1_right = 1 / 5  # Probability of 1 (Lung cancer) if cough is no
     
-    information_gain_cough = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    information_gain_cough = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
     print(f"info gain cough: {information_gain_cough}")
     
     # Info Gain for radon
@@ -54,7 +54,7 @@ def question1():
     p_c0_right = 5 / 5  # Probability of 0 (No lung cancer) if radon exposure is no
     p_c1_right = 3 / 5  # Probability of 1 (Lung cancer) if radon exposure is no
     
-    information_gain_radon = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    information_gain_radon = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
     print(f"info gain radon: {information_gain_radon}")
     
     # Info gain for weight loss
@@ -63,7 +63,7 @@ def question1():
     p_c0_right = 3 / 5  # Probability of 0 (No lung cancer) if weight loss is no
     p_c1_right = 2 / 5  # Probability of 1 (Lung cancer) if weight loss is no
     
-    information_gain_weight_loss = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    information_gain_weight_loss = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
     print(f"info gain weight loss: {information_gain_weight_loss}")
     
     
@@ -133,7 +133,7 @@ def question2():
     prob_B = .2*.2 + .6*.7
     prob_C = .3*.3 + .2*.2
     
-    entropy_entire = -(prob_A*log2(prob_A) + prob_B*log2(prob_B) + prob_C*log2(prob_C))
+    entropy_entire = -(prob_A*u.log2(prob_A) + prob_B*u.log2(prob_B) + prob_C*u.log2(prob_C))
     
     # Answers are floats
     answer["(a) entropy_entire_data"] = entropy_entire
@@ -143,13 +143,13 @@ def question2():
     probB_R1 = (.2*.2 + .6*.2) / (.2)
     probC_R1 = (.2*.2) / .2
     
-    entropy_R1 = - (probB_R1*log2(probB_R1) + probC_R1*log2(probC_R1))
+    entropy_R1 = - (probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probC_R1))
     
     probA_R2 = (.4*.6 + .3*.3) / .8
     probB_R2 = (.6*.5) / .8
     probC_R2 = (.3*.3) / .8
     
-    entropy_R2 = - (probA_R2*log2(probA_R2) + probB_R2*log2(probB_R2) + probC_R2*log2(probC_R2))
+    entropy_R2 = - (probA_R2*u.log2(probA_R2) + probB_R2*u.log2(probB_R2) + probC_R2*u.log2(probC_R2))
     
     entropy_x_leq_2 = entropy_R1 + entropy_R2
     
@@ -160,13 +160,13 @@ def question2():
     probB_R1 = (.2*.2 + .6*.7)/.7
     probC_R1 = .2*.2/.7
     
-    entropy_R1 = -(probA_R1*log2(probA_R1) + probB_R1*log2(probB_R1) + probC_R1*log2(probA_R1))
+    entropy_R1 = -(probA_R1*u.log2(probA_R1) + probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probA_R1))
     
     probA_R2 = (.4*.3 + .3*.3) / .3
     probB_R2 = 0
     probC_R2 = .3*.3/.3
     
-    entropy_R2 = -(probA_R2*log2(probA_R2) + 0 + probC_R2*log2(probA_R2))
+    entropy_R2 = -(probA_R2*u.log2(probA_R2) + 0 + probC_R2*u.log2(probA_R2))
     
     entropy_x_leq_7 = entropy_R1 + entropy_R2
     
@@ -177,13 +177,13 @@ def question2():
     probB_R1 = .2*.2/.4
     probC_R1 = .2*.2/.4
     
-    entropy_R1 = -(probA_R1*log2(probA_R1) + probB_R1*log2(probB_R1) + probC_R1*log2(probA_R1))
+    entropy_R1 = -(probA_R1*u.log2(probA_R1) + probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probA_R1))
     
     probA_R2 = .3*.3/.6
     probB_R2 = .7*.6/.6
     probC_R2 = .3*.3/.6
     
-    entropy_R2 = -(probA_R2*log2(probA_R2) + 0 + probC_R2*log2(probA_R2))
+    entropy_R2 = -(probA_R2*u.log2(probA_R2) + 0 + probC_R2*u.log2(probA_R2))
     
     entropy_y_leq_6 = entropy_R1 + entropy_R2
     
@@ -403,13 +403,13 @@ def question7():
     answer = {}
 
     # float
-    id_entropy_before_split = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
+    id_entropy_before_split = -((10/20)*u.log2(10/20) + (10/20)*u.log2(10/20))
     id_entropy_after_split = 0
     id_info_gain = id_entropy_before_split - id_entropy_after_split
     
-    handedness_entropy_before_split = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
-    handedness_entropy_left = -((9/10)*log2(9/10) + (1/10)*log2(1/10))
-    handedness_entropy_right = -((1/10)*log2(1/10) + (9/10)*log2(9/10))
+    handedness_entropy_before_split = -((10/20)*u.log2(10/20) + (10/20)*u.log2(10/20))
+    handedness_entropy_left = -((9/10)*u.log2(9/10) + (1/10)*u.log2(1/10))
+    handedness_entropy_right = -((1/10)*u.log2(1/10) + (9/10)*u.log2(9/10))
     handedness_entropy_after_split = (10/20)*handedness_entropy_left + (10/20)*handedness_entropy_right
     handedness_info_gain = handedness_entropy_before_split - handedness_entropy_after_split
     
@@ -420,10 +420,10 @@ def question7():
     answer["c, which attrib"] = "ID"
 
     
-    id_split_info = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
+    id_split_info = -((10/20)*u.log2(10/20) + (10/20)*u.log2(10/20))
     id_gain_ratio = id_info_gain / id_split_info
     
-    handedness_split_info = -((10/20)*log2(10/20) + (10/20)*log2(10/20))
+    handedness_split_info = -((10/20)*u.log2(10/20) + (10/20)*u.log2(10/20))
     handedness_gain_ratio = handedness_info_gain / handedness_split_info
     
     # answer is a float
