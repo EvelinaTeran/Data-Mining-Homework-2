@@ -199,7 +199,18 @@ def question2():
 
     # Use the Binary Tree structure to construct the tree
     # Answer is an instance of BinaryTree
-    tree = u.BinaryTree("Root")
+    tree = u.BinaryTree("y <= .6")
+    A = tree.insert_left(" x <= .7")
+    B = tree.insert_right("x <= .2")
+    A.insert_left("B")
+    C = A.insert_right("y <= .3")
+    C.insert_left("A")
+    C.insert_right("C")
+    B.insert_right("A")
+    D = B.insert_left("y <= .8")
+    D.insert_left("C")
+    D.insert_right("B")
+    
     answer["(d) full decision tree"] = tree
 
     return answer
@@ -375,24 +386,30 @@ def question6():
     # x <= ? is the left branch
     # y <= ? is the left branch
 
+    expected_error = .2*.3 
+    
     # value of the form "z <= float" where "z" is "x" or "y"
     #  and "float" is a floating point number (notice: <=)
     # The value could also be "A" or "B" if it is a leaf
-    answer["a, level 1"] = ""
-    answer["a, level 2, right"] =""
-    answer["a, level 2, left"] = ""
-    answer["a, level 3, left"] = ""
-    answer["a, level 3, right"] = ""
+    answer["a, level 1"] = "x <= .5"
+    answer["a, level 2, right"] ="A"
+    answer["a, level 2, left"] = "y <= .4"
+    answer["a, level 3, left"] = "A"
+    answer["a, level 3, right"] = "B"
 
     # run each datum through the tree. Count the number of errors and divide by number of samples. .
     # Since we have areas: calculate the area that is misclassified (total area is unity)
     # float between 0 and 1
-    answer["b, expected error"] = 0.
+    answer["b, expected error"] = expected_error
 
     # Use u.BinaryTree to define the tree. Create your tree.
     # Replace "root node" by the proper node of the form "z <= float"
-    tree = u.BinaryTree("root note")
-
+    tree = u.BinaryTree("x <= .5")
+    A = tree.insert_left("y <= .4")
+    tree.insert_right("A")
+    A.insert_left("A")
+    A.insert_right("B")
+    
     answer["c, tree"] = tree
 
     return answer
