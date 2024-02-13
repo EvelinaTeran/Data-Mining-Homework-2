@@ -29,60 +29,44 @@ def question1():
     # Calculate entropy for the parent node
     entropy_parent = u.calculate_entropy(p_c0_parent, p_c1_parent)
     
-    # Calculate the information gain for each attribute at level 1
-    # Info Gain for smoking
-    p_c0_left = 1/5 # Probability 0 (no lung cancer) if smoking is yes
-    p_c1_left = 4/5 # Probability 1 (lung cancer) if smoking is yes
-    p_c0_right = 4/5 # Probability 0 (no lung cancer) if smoking is no
-    p_c1_right = 1/5 # Probability 1 (lung cancer) if smoking is no
-    
-    information_gain_smoking = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
-    print(f"info gain smoking: {information_gain_smoking}")
-    
-    # Info Gain for cough
-    p_c0_left = 3 / 5  # Probability of 0 (No lung cancer) if cough is yes
-    p_c1_left = 4 / 5  # Probability of 1 (Lung cancer) if cough is yes
-    p_c0_right = 2 / 5  # Probability of 0 (No lung cancer) if cough is no
-    p_c1_right = 1 / 5  # Probability of 1 (Lung cancer) if cough is no
-    
-    information_gain_cough = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
-    print(f"info gain cough: {information_gain_cough}")
-    
-    # Info Gain for radon
-    p_c0_left = 0 / 5  # Probability of 0 (No lung cancer) if radon exposure is yes
-    p_c1_left = 2 / 5  # Probability of 1 (Lung cancer) if radon exposure is yes
-    p_c0_right = 5 / 5  # Probability of 0 (No lung cancer) if radon exposure is no
-    p_c1_right = 3 / 5  # Probability of 1 (Lung cancer) if radon exposure is no
-    
-    information_gain_radon = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
-    print(f"info gain radon: {information_gain_radon}")
-    
-    # Info gain for weight loss
-    p_c0_left = 2 / 5  # Probability of 0 (No lung cancer) if weight loss is yes
-    p_c1_left = 3 / 5  # Probability of 1 (Lung cancer) if weight loss is yes
-    p_c0_right = 3 / 5  # Probability of 0 (No lung cancer) if weight loss is no
-    p_c1_right = 2 / 5  # Probability of 1 (Lung cancer) if weight loss is no
-    
-    information_gain_weight_loss = u.calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
-    print(f"info gain weight loss: {information_gain_weight_loss}")
-    
-    
-    # Choose the attribute with the highest information gain as the splitting criterion at level 1
-    max_information_gain = max(information_gain_smoking, information_gain_cough, information_gain_radon, information_gain_weight_loss)
+    entropy_smoking = -5/10 * (1/5 * u.log2(1/5) + 4/5 * u.log2(4/5)) - 5/10 * (4/5 * u.log2(4/5) + 1/5 * u.log2(1/5))
+    info_gain_smoking = entropy_parent - entropy_smoking
 
+    
+    entropy_cough = -7/10 * (4/7 * u.log2(4/7) + 3/7 * u.log2(3/7)) - 3/10 * (1/3 * u.log2(1/3) + 2/3 * u.log2(2/3))
+    info_gain_cough = entropy_parent - entropy_cough
+   
+        
+    entropy_radon = -2/10 * ( 2/2 * u.log2(2/2)) - 8/10 * (5/8 * u.log2(5/8) + 3/8 * u.log2(3/8))    
+    info_gain_radon = entropy_parent - entropy_radon
+       
+    
+    entropy_weight_loss = -5/10 * (2/5 * u.log2(2/5) + 3/5 * u.log2(3/5)) - 5/10 * (3/5 * u.log2(3/5) + 2/5 * u.log2(2/5))
+    info_gain_weight_loss = entropy_parent - entropy_weight_loss
 
-    level1["smoking"] = -1
-    level1["smoking_info_gain"] = -1
+    
+
+    
+    level1["smoking"] = 1
+    level1["smoking_info_gain"] = info_gain_smoking
 
     level1["cough"] = -1
     level1["cough_info_gain"] = -1
 
-    level1["radon"] = 1
-    level1["radon_info_gain"] = information_gain_radon
+    level1["radon"] = -1
+    level1["radon_info_gain"] = -1
 
     level1["weight_loss"] = -1
     level1["weight_loss_info_gain"] = -1
     
+    
+    radon_left_gain = -4/5 * (3/4 * u.log2(3/4) + 1/4 * u.log2(1/4)) - 1/4 * (1 * u.log2(1) + 0 )
+    
+    
+    cough_left_gain = -4/5 * (4/4 * u.log2(4/4) + 0) - 1/4 * (1 * u.log2(1) + 0 )
+    
+    
+    weight_left_gain = -3/5 * (2/3 * u.log2(2/3) + 1/3 * u.log2(1/3)) - 2/5 * (1 * u.log2(1) + 0 )
     
 
     level2_left["smoking"] = -1
@@ -90,35 +74,54 @@ def question1():
     level2_right["smoking"] = -1
     level2_right["smoking_info_gain"] = 0.
 
-    level2_left["radon"] = 0.
-    level2_left["radon_info_gain"] = 0.
+    level2_left["radon"] = 1
+    level2_left["radon_info_gain"] = radon_left_gain
 
     level2_left["cough"] = -1
-    level2_left["cough_info_gain"] = 0.
+    level2_left["cough_info_gain"] = -1
 
-    level2_left["weight_loss"] = 0.
-    level2_left["weight_loss_info_gain"] = 0.
+    level2_left["weight_loss"] = -1
+    level2_left["weight_loss_info_gain"] = -1
 
-    level2_right["radon"] = 0.
-    level2_right["radon_info_gain"] = 0.
+    
+    cough_right_gain = -2/5 * (1/2 * u.log2(1/2) + 1/2 * u.log2(1/2)) - 3/5 * (1 * u.log2(1) + 0 )
+   
+    
+    weight_right_gain = -3/5 * (1/3 * u.log2(1/3) + 2/3 * u.log2(2/3)) - 2/5 * (1 * u.log2(1) + 0 )
+    
+    
+    level2_right["radon"] = -1
+    level2_right["radon_info_gain"] = -1
 
     level2_right["cough"] = -1
-    level2_right["cough_info_gain"] = 0.
+    level2_right["cough_info_gain"] = -1
 
-    level2_right["weight_loss"] = 0.
-    level2_right["weight_loss_info_gain"] = 0.
+    level2_right["weight_loss"] = 1
+    level2_right["weight_loss_info_gain"] = weight_right_gain
     
-
+    
     answer["level1"] = level1
     answer["level2_left"] = level2_left
     answer["level2_right"] = level2_right
 
+    def construct_tree():
+        tree = u.BinaryTree("Smoking Tobacco")
+        A = tree.insert_left("Radon Exposure")
+        B = tree.insert_right("Weight Loss")
+        A.insert_left("Lung Cancer")
+        A.insert_right("No Lung Cancer")
+        B.insert_left("Lung Cancer")
+        B.insert_right("No Lung Cancer")
+        
+        training_error = 5/10
+        return tree, training_error
+
     # Fill up `construct_tree``
-    # tree, training_error = construct_tree()
-    tree = u.BinaryTree("root")  # MUST STILL CREATE THE TREE *****
+    tree, training_error = construct_tree()
+      # MUST STILL CREATE THE TREE *****
     answer["tree"] = tree  # use the Tree structure
     # answer["training_error"] = training_error
-    answer["training_error"] = 0.0  
+    answer["training_error"] = 5/10
 
     return answer
 
@@ -143,13 +146,13 @@ def question2():
     probB_R1 = (.2*.2 + .6*.2) / (.2)
     probC_R1 = (.2*.2) / .2
     
-    entropy_R1 = - (probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probC_R1))
+    entropy_R1 = -.2 *(probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probC_R1))
     
-    probA_R2 = (.4*.6 + .3*.3) / .8
+    probA_R2 = (.4*.8 + .3*.3) / .8
     probB_R2 = (.6*.5) / .8
     probC_R2 = (.3*.3) / .8
     
-    entropy_R2 = - (probA_R2*u.log2(probA_R2) + probB_R2*u.log2(probB_R2) + probC_R2*u.log2(probC_R2))
+    entropy_R2 = -.8* (probA_R2*u.log2(probA_R2) + probB_R2*u.log2(probB_R2) + probC_R2*u.log2(probC_R2))
     
     entropy_x_leq_2 = entropy_R1 + entropy_R2
     
@@ -160,13 +163,13 @@ def question2():
     probB_R1 = (.2*.2 + .6*.7)/.7
     probC_R1 = .2*.2/.7
     
-    entropy_R1 = -(probA_R1*u.log2(probA_R1) + probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probA_R1))
+    entropy_R1 = -.7*(probA_R1*u.log2(probA_R1) + probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probA_R1))
     
     probA_R2 = (.4*.3 + .3*.3) / .3
     probB_R2 = 0
     probC_R2 = .3*.3/.3
     
-    entropy_R2 = -(probA_R2*u.log2(probA_R2) + 0 + probC_R2*u.log2(probA_R2))
+    entropy_R2 = -.3*(probA_R2*u.log2(probA_R2) + 0 + probC_R2*u.log2(probA_R2))
     
     entropy_x_leq_7 = entropy_R1 + entropy_R2
     
@@ -177,13 +180,13 @@ def question2():
     probB_R1 = .2*.2/.4
     probC_R1 = .2*.2/.4
     
-    entropy_R1 = -(probA_R1*u.log2(probA_R1) + probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probA_R1))
+    entropy_R1 = -.4*(probA_R1*u.log2(probA_R1) + probB_R1*u.log2(probB_R1) + probC_R1*u.log2(probA_R1))
     
     probA_R2 = .3*.3/.6
     probB_R2 = .7*.6/.6
     probC_R2 = .3*.3/.6
     
-    entropy_R2 = -(probA_R2*u.log2(probA_R2) + 0 + probC_R2*u.log2(probA_R2))
+    entropy_R2 = -.6*(probA_R2*u.log2(probA_R2) + 0 + probC_R2*u.log2(probA_R2))
     
     entropy_y_leq_6 = entropy_R1 + entropy_R2
     

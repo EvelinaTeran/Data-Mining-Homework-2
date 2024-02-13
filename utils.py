@@ -100,6 +100,8 @@ def construct_binary_tree():
     root.right.insert_right("G")
     return root
 
+
+
 def calculate_entropy(p_c0, p_c1):
     if p_c0 == 0 or p_c1 == 0:
         return 0
