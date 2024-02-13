@@ -22,28 +22,78 @@ def question1():
     level1 = {}
     level2_left = {}
     level2_right = {}
+    
+    p_c0_parent = 5/10 #Probability of class 0 (No lung cancer) in the parent node
+    p_c1_parent = 5/10 #Probability of lass 1 (Lung cancer) in the parent node
+    
+    # Calculate entropy for the parent node
+    entropy_parent = calculate_entropy(p_c0_parent, p_c1_parent)
+    
+    # Calculate the information gain for each attribute at level 1
+    # Info Gain for smoking
+    p_c0_left = 1/5 # Probability 0 (no lung cancer) if smoking is yes
+    p_c1_left = 4/5 # Probability 1 (lung cancer) if smoking is yes
+    p_c0_right = 4/5 # Probability 0 (no lung cancer) if smoking is no
+    p_c1_right = 1/5 # Probability 1 (lung cancer) if smoking is no
+    
+    information_gain_smoking = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    print(f"info gain smoking: {information_gain_smoking}")
+    
+    # Info Gain for cough
+    p_c0_left = 3 / 5  # Probability of 0 (No lung cancer) if cough is yes
+    p_c1_left = 4 / 5  # Probability of 1 (Lung cancer) if cough is yes
+    p_c0_right = 2 / 5  # Probability of 0 (No lung cancer) if cough is no
+    p_c1_right = 1 / 5  # Probability of 1 (Lung cancer) if cough is no
+    
+    information_gain_cough = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    print(f"info gain cough: {information_gain_cough}")
+    
+    # Info Gain for radon
+    p_c0_left = 0 / 5  # Probability of 0 (No lung cancer) if radon exposure is yes
+    p_c1_left = 2 / 5  # Probability of 1 (Lung cancer) if radon exposure is yes
+    p_c0_right = 5 / 5  # Probability of 0 (No lung cancer) if radon exposure is no
+    p_c1_right = 3 / 5  # Probability of 1 (Lung cancer) if radon exposure is no
+    
+    information_gain_radon = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    print(f"info gain radon: {information_gain_radon}")
+    
+    # Info gain for weight loss
+    p_c0_left = 2 / 5  # Probability of 0 (No lung cancer) if weight loss is yes
+    p_c1_left = 3 / 5  # Probability of 1 (Lung cancer) if weight loss is yes
+    p_c0_right = 3 / 5  # Probability of 0 (No lung cancer) if weight loss is no
+    p_c1_right = 2 / 5  # Probability of 1 (Lung cancer) if weight loss is no
+    
+    information_gain_weight_loss = calculate_information_gain(p_c0_parent, p_c1_parent, p_c0_left, p_c1_left, p_c0_right, p_c1_right)
+    print(f"info gain weight loss: {information_gain_weight_loss}")
+    
+    
+    # Choose the attribute with the highest information gain as the splitting criterion at level 1
+    max_information_gain = max(information_gain_smoking, information_gain_cough, information_gain_radon, information_gain_weight_loss)
 
-    level1["smoking"] = 0.
-    level1["smoking_info_gain"] = 0.
 
-    level1["cough"] = 0.
-    level1["cough_info_gain"] = 0.
+    level1["smoking"] = -1
+    level1["smoking_info_gain"] = -1
 
-    level1["radon"] = 0.
-    level1["radon_info_gain"] = 0.
+    level1["cough"] = -1
+    level1["cough_info_gain"] = -1
 
-    level1["weight_loss"] = 0.0
-    level1["weight_loss_info_gain"] = 0.
+    level1["radon"] = 1
+    level1["radon_info_gain"] = information_gain_radon
 
-    level2_left["smoking"] = 0.
+    level1["weight_loss"] = -1
+    level1["weight_loss_info_gain"] = -1
+    
+    
+
+    level2_left["smoking"] = -1
     level2_left["smoking_info_gain"] = 0.
-    level2_right["smoking"] = 0.
+    level2_right["smoking"] = -1
     level2_right["smoking_info_gain"] = 0.
 
     level2_left["radon"] = 0.
     level2_left["radon_info_gain"] = 0.
 
-    level2_left["cough"] = 0.
+    level2_left["cough"] = -1
     level2_left["cough_info_gain"] = 0.
 
     level2_left["weight_loss"] = 0.
@@ -52,11 +102,12 @@ def question1():
     level2_right["radon"] = 0.
     level2_right["radon_info_gain"] = 0.
 
-    level2_right["cough"] = 0.
+    level2_right["cough"] = -1
     level2_right["cough_info_gain"] = 0.
 
     level2_right["weight_loss"] = 0.
     level2_right["weight_loss_info_gain"] = 0.
+    
 
     answer["level1"] = level1
     answer["level2_left"] = level2_left
@@ -78,15 +129,73 @@ def question1():
 def question2():
     answer = {}
 
+    prob_A = .3*.3 + .4*.8
+    prob_B = .2*.2 + .6*.7
+    prob_C = .3*.3 + .2*.2
+    
+    entropy_entire = -(prob_A*log2(prob_A) + prob_B*log2(prob_B) + prob_C*log2(prob_C))
+    
     # Answers are floats
-    answer["(a) entropy_entire_data"] = 0.
+    answer["(a) entropy_entire_data"] = entropy_entire
+    
+    # x <= .2
+    probA_R1 = 0
+    probB_R1 = (.2*.2 + .6*.2) / (.2)
+    probC_R1 = (.2*.2) / .2
+    
+    entropy_R1 = - (probB_R1*log2(probB_R1) + probC_R1*log2(probC_R1))
+    
+    probA_R2 = (.4*.6 + .3*.3) / .8
+    probB_R2 = (.6*.5) / .8
+    probC_R2 = (.3*.3) / .8
+    
+    entropy_R2 = - (probA_R2*log2(probA_R2) + probB_R2*log2(probB_R2) + probC_R2*log2(probC_R2))
+    
+    entropy_x_leq_2 = entropy_R1 + entropy_R2
+    
+    info_gain_x_leq_2 = entropy_entire - entropy_x_leq_2
+    
+    # x <= .7
+    probA_R1 = .4*.5/.7
+    probB_R1 = (.2*.2 + .6*.7)/.7
+    probC_R1 = .2*.2/.7
+    
+    entropy_R1 = -(probA_R1*log2(probA_R1) + probB_R1*log2(probB_R1) + probC_R1*log2(probA_R1))
+    
+    probA_R2 = (.4*.3 + .3*.3) / .3
+    probB_R2 = 0
+    probC_R2 = .3*.3/.3
+    
+    entropy_R2 = -(probA_R2*log2(probA_R2) + 0 + probC_R2*log2(probA_R2))
+    
+    entropy_x_leq_7 = entropy_R1 + entropy_R2
+    
+    info_gain_x_leq_7 = entropy_entire - entropy_x_leq_7
+    
+    # y <= .6
+    probA_R1 = .8*.4/.4
+    probB_R1 = .2*.2/.4
+    probC_R1 = .2*.2/.4
+    
+    entropy_R1 = -(probA_R1*log2(probA_R1) + probB_R1*log2(probB_R1) + probC_R1*log2(probA_R1))
+    
+    probA_R2 = .3*.3/.6
+    probB_R2 = .7*.6/.6
+    probC_R2 = .3*.3/.6
+    
+    entropy_R2 = -(probA_R2*log2(probA_R2) + 0 + probC_R2*log2(probA_R2))
+    
+    entropy_y_leq_6 = entropy_R1 + entropy_R2
+    
+    info_gain_y_leg_6 = entropy_entire - entropy_y_leq_6
+    
     # Infogain
-    answer["(b) x <= 0.2"] = 0.
-    answer["(b) x <= 0.7"] = 0.
-    answer["(b) y <= 0.6"] = 0.
+    answer["(b) x <= 0.2"] = info_gain_x_leq_2
+    answer["(b) x <= 0.7"] = info_gain_x_leq_7
+    answer["(b) y <= 0.6"] = info_gain_y_leg_6
 
     # choose one of 'x=0.2', 'x=0.7', or 'x=0.6'
-    answer["(c) attribute"] = ""  
+    answer["(c) attribute"] = "y=0.6"  
 
     # Use the Binary Tree structure to construct the tree
     # Answer is an instance of BinaryTree
@@ -174,7 +283,6 @@ def question3():
     answer["(f) explain choice"] = "Car Type has the lowest Gini index so splitting by this attribute will result in better separation of classes"
 
     return answer
-
 
 # ----------------------------------------------------------------------
 # Answers in th form [str1, str2, str3]
@@ -327,7 +435,6 @@ def question7():
     answer["f, which attrib"] = "Handedness"
 
     return answer
-
 
 # ----------------------------------------------------------------------
 
