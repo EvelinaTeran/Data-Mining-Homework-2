@@ -50,14 +50,14 @@ def question1():
     level1["smoking"] = 1.
     level1["smoking_info_gain"] = info_gain_smoking
 
-    level1["cough"] = -1
-    level1["cough_info_gain"] = -1
+    level1["cough"] = -1.
+    level1["cough_info_gain"] = -1.
 
-    level1["radon"] = -1
-    level1["radon_info_gain"] = -1
+    level1["radon"] = -1.
+    level1["radon_info_gain"] = -1.
 
-    level1["weight_loss"] = -1
-    level1["weight_loss_info_gain"] = -1
+    level1["weight_loss"] = -1.
+    level1["weight_loss_info_gain"] = -1.
     
     
     radon_left_gain = -4/5 * (3/4 * u.log2(3/4) + 1/4 * u.log2(1/4)) - 1/4 * (1 * u.log2(1) + 0 )
@@ -69,19 +69,19 @@ def question1():
     weight_left_gain = -3/5 * (2/3 * u.log2(2/3) + 1/3 * u.log2(1/3)) - 2/5 * (1 * u.log2(1) + 0 )
     
 
-    level2_left["smoking"] = -1
-    level2_left["smoking_info_gain"] = -1
-    level2_right["smoking"] = -1
-    level2_right["smoking_info_gain"] = -1
+    level2_left["smoking"] = -1.
+    level2_left["smoking_info_gain"] = -1.
+    level2_right["smoking"] = -1.
+    level2_right["smoking_info_gain"] = -1.
 
     level2_left["radon"] = 1.
     level2_left["radon_info_gain"] = radon_left_gain
 
-    level2_left["cough"] = -1
-    level2_left["cough_info_gain"] = -1
+    level2_left["cough"] = -1.
+    level2_left["cough_info_gain"] = -1.
 
-    level2_left["weight_loss"] = -1
-    level2_left["weight_loss_info_gain"] = -1
+    level2_left["weight_loss"] = -1.
+    level2_left["weight_loss_info_gain"] = -1.
 
     
     cough_right_gain = -2/5 * (1/2 * u.log2(1/2) + 1/2 * u.log2(1/2)) - 3/5 * (1 * u.log2(1) + 0 )
@@ -90,13 +90,13 @@ def question1():
     weight_right_gain = -3/5 * (1/3 * u.log2(1/3) + 2/3 * u.log2(2/3)) - 2/5 * (1 * u.log2(1) + 0 )
     
     
-    level2_right["radon"] = -1
-    level2_right["radon_info_gain"] = -1
+    level2_right["radon"] = -1.
+    level2_right["radon_info_gain"] = -1.
 
-    level2_right["cough"] = -1
-    level2_right["cough_info_gain"] = -1
+    level2_right["cough"] = -1.
+    level2_right["cough_info_gain"] = -1.
 
-    level2_right["weight_loss"] = 1
+    level2_right["weight_loss"] = 1.
     level2_right["weight_loss_info_gain"] = weight_right_gain
     
     
