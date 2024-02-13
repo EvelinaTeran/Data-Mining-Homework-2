@@ -47,7 +47,7 @@ def question1():
     
 
     
-    level1["smoking"] = 1
+    level1["smoking"] = 1.
     level1["smoking_info_gain"] = info_gain_smoking
 
     level1["cough"] = -1
@@ -70,11 +70,11 @@ def question1():
     
 
     level2_left["smoking"] = -1
-    level2_left["smoking_info_gain"] = 0.
+    level2_left["smoking_info_gain"] = -1
     level2_right["smoking"] = -1
-    level2_right["smoking_info_gain"] = 0.
+    level2_right["smoking_info_gain"] = -1
 
-    level2_left["radon"] = 1
+    level2_left["radon"] = 1.
     level2_left["radon_info_gain"] = radon_left_gain
 
     level2_left["cough"] = -1
