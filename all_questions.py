@@ -194,8 +194,8 @@ def question2():
     
     # Infogain
     answer["(b) x < 0.2"] = info_gain_x_leq_2
-    answer["(b) x <= 0.7"] = info_gain_x_leq_7
-    answer["(b) y <= 0.6"] = info_gain_y_leg_6
+    answer["(b) x < 0.7"] = info_gain_x_leq_7
+    answer["(b) y < 0.6"] = info_gain_y_leg_6
 
     # choose one of 'x=0.2', 'x=0.7', or 'x=0.6'
     answer["(c) attribute"] = "y=0.6"  
